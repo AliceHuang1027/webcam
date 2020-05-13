@@ -4,7 +4,7 @@ const fs = require('fs')
 const {v4:uuid}=require('uuid')
 const port = process.env.PORT || 8900
 app.use(express.static(__dirname+'/public'))
-app.use(express.json())
+app.use(express.json({limit:'10mb'}))
 app.options('/todolist/*', (req, res) => {
     res.header('Access-Control-Allow-Credentials', true)
     res.header('Access-Control-Allow-Origin', req.headers.origin)
@@ -20,14 +20,21 @@ app.get('/',(req,res)=>{
 })
 app.post("/images",(req,res)=>{
     const id = uuid()
-    fs.writeFile(`${id}.png`,req.body.img,'base64',(err)=>{
+    fs.writeFile(`./${id}.png`,req.body.img,'base64',(err)=>{
 	if(err) throw err
 	console.log("this file has been saved")
 
 })
-    
-    res.json({"link":`/${id}.png`})
+    res.json({"link":`https://jenesaispas.freedomains.dev//${id}.png`})
 
+})
+
+app.get('/:pic',(res,req)=>{
+	const pic = req.params.pic
+	console.log(pic)
+	if(pic){
+		res.sendFile(`${pic}`,{root:__dirname})
+	}
 })
 
 app.listen(port,()=>{console.log(`listening on port ${port}`)})
