@@ -25,7 +25,7 @@ app.post("/images",(req,res)=>{
 	console.log("this file has been saved")
 
 })
-    res.json({"link":`https://jenesaispas.freedomains.dev//${id}.png`})
+    res.json({"link":`https://jenesaispas.freedomains.dev/${id}.png`})
 
 })
 
