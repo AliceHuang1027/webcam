@@ -3,7 +3,7 @@ const app = express()
 const fs = require('fs')
 const {v4:uuid}=require('uuid')
 const port = process.env.PORT || 8900
-app.use(express.static(__dirname+'/public'))
+app.use(express.static(__dirname))
 app.use(express.json({limit:'10mb'}))
 app.options('/todolist/*', (req, res) => {
     res.header('Access-Control-Allow-Credentials', true)
@@ -25,7 +25,7 @@ app.post("/images",(req,res)=>{
 	console.log("this file has been saved")
 
 })
-    res.json({"link":`https://jenesaispas.freedomains.dev/${id}.png`})
+    res.json({"link":`http://localhost:8900/${id}.png`})
 
 })
 
